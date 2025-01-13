@@ -1,8 +1,12 @@
-<div>Hello from the blade template view</div>
+<h1>The list of Tasks</h1>
 
 
-@isset($name)
-    <h2>
-        My name is: {{ $name }}
-    </h2>
-@endisset
+<div>
+    @forelse ($tasks as $task)
+        <div>
+            <a href="{{ route('tasks.show', ['id' => $task->id]) }}">{{ $task->title }}</a>
+        </div>
+    @empty
+        <div>There are no tasks!</div>
+    @endforelse
+</div>
