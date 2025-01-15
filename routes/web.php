@@ -54,22 +54,23 @@ $tasks = [
     ),
 ];
 
-Route::get('/', function () use ($tasks) {
+Route::get('/', function () {
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/tasks', function () use ($tasks) {
     return view('index', ['tasks' => $tasks]);
 })->name('tasks.index');
 
-Route::get('/{id}', function ($id) {
-    return 'One single task';
+Route::get('/tasks/{id}', function ($id) use ($tasks) {
+    // Find the task with the matching ID
+    $task = collect($tasks)->firstWhere('id', $id);
+
+    // Check if the task exists
+    if (!$task) {
+        abort(404, 'Task not found');
+    }
+
+    // Pass the task to a view
+    return view('show', ['task' => $task]);
 })->name('tasks.show');
-
-// Route::get('/hello', function () {
-//     return 'hello route';
-// });
-
-// Route::get('/greet/{name}', function ($name) {
-//     return 'Hello ' . $name . '!';
-// })->name('greet');
-
-// Route::fallback(function () {
-//     return '<h1 class="text-center">Not found</h1>';
-// });
