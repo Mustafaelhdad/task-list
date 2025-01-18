@@ -19,7 +19,7 @@
             @endforelse
         </ul>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="/#"
+            <a href="{{ route('tasks.create') }}"
                 style="display: block; text-decoration: none; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: background-color 0.3s ease;">
                 Add New Task
             </a>
