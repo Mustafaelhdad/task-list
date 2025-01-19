@@ -36,6 +36,30 @@ Route::post('/tasks', function (Request $request) {
     return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
 })->name('tasks.store');
 
+Route::get('/tasks/{id}/edit', function ($id) {
+    // Retrieve the task by ID
+    $task = Task::findOrFail($id);
+
+    // Pass the task to the edit view
+    return view('edit', ['task' => $task]);
+})->name('tasks.edit');
+
+Route::put('/tasks/{id}', function (Request $request, $id) {
+    // Validate the request
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'long_description' => 'nullable|string',
+    ]);
+
+    // Find the task and update it
+    $task = Task::findOrFail($id);
+    $task->update($validated);
+
+    // Redirect back to the tasks list with a success message
+    return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
+})->name('tasks.update');
+
 Route::get('/tasks/{id}', function ($id) {
     // Find the task with the matching ID
     $task = Task::findOrFail($id);

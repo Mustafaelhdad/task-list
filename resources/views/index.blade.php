@@ -22,6 +22,12 @@
                         style="text-decoration: none; color: #4CAF50; font-size: 1.2em;">
                         {{ $task->title }}
                     </a>
+
+                    <!-- Edit Button -->
+                    <a href="{{ route('tasks.edit', ['id' => $task->id]) }}"
+                        style="padding: 8px 15px; background: #FFC107; color: white; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; transition: background-color 0.3s ease; margin-left: 10px;">
+                        Edit
+                    </a>
                 </li>
             @empty
                 <p style="text-align: center; color: #999; font-size: 1.2em; margin-top: 20px;">There are no tasks!</p>
