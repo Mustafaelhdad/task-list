@@ -16,8 +16,8 @@
             </div>
         @endif
 
-        <form style="display: flex; flex-direction: column; gap: 15px;" action="{{ route('tasks.update', $task->id) }}"
-            method="POST">
+        <form style="display: flex; flex-direction: column; gap: 15px;"
+            action="{{ route('tasks.update', ['task' => $task->id]) }}" method="POST">
             @csrf
             @method('PUT') <!-- Method Spoofing for PUT -->
 
