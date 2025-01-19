@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -19,13 +20,9 @@ Route::get('/tasks/create', function () {
     return view('create');
 })->name('tasks.create');
 
-Route::post('/tasks', function (Request $request) {
+Route::post('/tasks', function (TaskRequest $request) {
     // Validate the incoming request
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'long_description' => 'nullable|string',
-    ]);
+    $validated = $request->validated();
 
     $validated['completed'] = false;
 
@@ -40,12 +37,8 @@ Route::get('/tasks/{task}/edit', function (Task $task) {
     return view('edit', ['task' => $task]);
 })->name('tasks.edit');
 
-Route::put('/tasks/{task}', function (Request $request, Task $task) {
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'long_description' => 'nullable|string',
-    ]);
+Route::put('/tasks/{task}', function (TaskRequest $request, Task $task) {
+    $validated = $request->validated();
 
     $task->update($validated);
 
