@@ -5,6 +5,15 @@
 @section('content')
     <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
         <h1 style="font-size: 2.5em; color: #4CAF50; text-align: center; margin-bottom: 20px;">The List of Tasks</h1>
+
+        <!-- Display success message -->
+        @if (session('success'))
+            <div id="success-message"
+                style="background: #d4edda; color: #155724; padding: 10px 20px; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 20px;">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <ul style="list-style: none; padding: 0; margin: 0;">
             @forelse ($tasks as $task)
                 <li
@@ -25,4 +34,16 @@
             </a>
         </div>
     </div>
+
+    <script>
+        // Hide the success message after 3 seconds
+        setTimeout(() => {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.transition = 'opacity 0.5s ease';
+                successMessage.style.opacity = '0';
+                setTimeout(() => successMessage.remove(), 500); // Remove from DOM after fade-out
+            }
+        }, 3000);
+    </script>
 @endsection
