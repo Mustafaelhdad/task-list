@@ -19,15 +19,30 @@
                 <li
                     style="padding: 15px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
                     <a href="{{ route('tasks.show', ['task' => $task->id]) }}"
-                        style="text-decoration: none; color: #4CAF50; font-size: 1.2em;">
+                        style="text-decoration: none; color: #4CAF50; font-size: 1.2em; max-width: 70%;">
                         {{ $task->title }}
                     </a>
 
-                    <!-- Edit Button -->
-                    <a href="{{ route('tasks.edit', ['task' => $task->id]) }}"
-                        style="padding: 8px 15px; background: #FFC107; color: white; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; transition: background-color 0.3s ease; margin-left: 10px;">
-                        Edit
-                    </a>
+
+                    <div>
+                        <!-- Edit Button -->
+                        <a href="{{ route('tasks.edit', ['task' => $task->id]) }}"
+                            style="padding: 8px 15px; background: #FFC107; color: white; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; transition: background-color 0.3s ease; margin-left: 10px;">
+                            Edit
+                        </a>
+
+                        <!-- Delete Button -->
+                        <form style="display: inline;" action="{{ route('tasks.destroy', ['task' => $task->id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                style="padding: 8px 15px; background: #FF4D4D; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em; font-weight: bold; transition: background-color 0.3s ease; margin-left: 10px;"
+                                onclick="return confirm('Are you sure you want to delete this task?')">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </li>
             @empty
                 <p style="text-align: center; color: #999; font-size: 1.2em; margin-top: 20px;">There are no tasks!</p>
