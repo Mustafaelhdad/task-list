@@ -18,11 +18,27 @@
             @forelse ($tasks as $task)
                 <li
                     style="padding: 15px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
-                    <a href="{{ route('tasks.show', ['task' => $task->id]) }}"
-                        style="text-decoration: none; color: #4CAF50; font-size: 1.2em; max-width: 70%;">
-                        {{ $task->title }}
-                    </a>
 
+                    <!-- Status and Title Section -->
+                    <div style="display: flex; align-items: center; max-width: 70%;">
+                        <!-- Toggle Status Checkbox -->
+                        <form id="toggle-completed-{{ $task->id }}"
+                            action="{{ route('tasks.toggle-complete', ['task' => $task->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="checkbox" style="margin-right: 15px; transform: scale(1.5); cursor: pointer;"
+                                onchange="document.getElementById('toggle-completed-{{ $task->id }}').submit()"
+                                {{ $task->completed ? 'checked' : '' }}>
+                        </form>
+
+                        <!-- Task Title -->
+                        <a href="{{ route('tasks.show', ['task' => $task]) }}"
+                            style="text-decoration: {{ $task->completed ? 'line-through' : 'none' }};
+                                   color: {{ $task->completed ? '#9E9E9E' : '#4CAF50' }};
+                                   font-size: 1.2em;">
+                            {{ $task->title }}
+                        </a>
+                    </div>
 
                     <div>
                         <!-- Edit Button -->
