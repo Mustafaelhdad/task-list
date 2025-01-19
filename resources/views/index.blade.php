@@ -48,6 +48,12 @@
                 <p style="text-align: center; color: #999; font-size: 1.2em; margin-top: 20px;">There are no tasks!</p>
             @endforelse
         </ul>
+
+        <!-- Pagination Links -->
+        <div style="margin-top: 20px; text-align: center;">
+            {{ $tasks->links() }}
+        </div>
+
         <div style="text-align: center; margin-top: 20px;">
             <a href="{{ route('tasks.create') }}"
                 style="display: block; text-decoration: none; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: background-color 0.3s ease;">
